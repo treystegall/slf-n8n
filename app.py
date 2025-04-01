@@ -38,3 +38,6 @@ def split_audio():
 @app.route("/chunks/<filename>")
 def serve_chunk(filename):
     return send_from_directory(CHUNK_DIR, filename)
+    if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
+
