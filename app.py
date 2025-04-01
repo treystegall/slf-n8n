@@ -21,7 +21,11 @@ def split_audio():
     filepath = os.path.join(CHUNK_DIR, filename)
     audio_file.save(filepath)
 
-    audio = AudioSegment.from_file(filepath)
+    try:
+        audio = AudioSegment.from_file(filepath)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
     chunk_length_ms = 10 * 60 * 1000  # 10 minutes
     chunks = []
 
@@ -41,4 +45,3 @@ def serve_chunk(filename):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
-
